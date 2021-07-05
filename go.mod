@@ -8,7 +8,7 @@ require (
 	github.com/briandowns/spinner v1.15.0
 	github.com/enescakir/emoji v1.0.0
 	github.com/go-logr/logr v0.4.0
-	github.com/iomesh/operator v0.9.8
+	github.com/iomesh/operator v0.9.8 // indirect
 	github.com/spf13/cobra v1.1.1
 	k8s.io/api v0.20.2
 	k8s.io/apimachinery v0.20.2
