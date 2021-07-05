@@ -124,10 +124,10 @@ func (hc HostNetworkChecker) GetBandwidth() error {
 }
 
 func (hc HostNetworkChecker) HostNetworkCheckerDaemonSet(namespace, name string) (*appsv1.DaemonSet, error) {
-	dataCIRD := os.Getenv("IOMESH_DATA_CIDR")
+	dataCIRD := os.Getenv("HOST_NETWORK_CIDR")
 	_, _, err := net.ParseCIDR(dataCIRD)
 	if err != nil {
-		return nil, errors.New("IOMESH_DATA_CIDR is not the correct cidr format. example: IOMESH_DATA_CIDR=192.168.1.0/24")
+		return nil, errors.New("HOST_NETWORK_CIDR is not the correct cidr format. example: HOST_NETWORK_CIDR=192.168.1.0/24")
 	}
 	ds := kutils.NewDaemonSet(namespace, name)
 	labels := map[string]string{
@@ -144,7 +144,7 @@ func (hc HostNetworkChecker) HostNetworkCheckerDaemonSet(namespace, name string)
 		Image: constant.DebugToolsImage,
 		Env: []corev1.EnvVar{
 			{
-				Name:  "DATA_CIDR",
+				Name:  "HOST_NETWORK_CIDR",
 				Value: dataCIRD,
 			},
 		},

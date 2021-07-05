@@ -116,10 +116,10 @@ func (f Fixture) Cleanup() error {
 }
 
 func (f Fixture) BasicCheckerDaemonSet(namespace, name string) (*appsv1.DaemonSet, error) {
-	dataCIRD := os.Getenv("IOMESH_DATA_CIDR")
+	dataCIRD := os.Getenv("HOST_NETWORK_CIDR")
 	_, _, err := net.ParseCIDR(dataCIRD)
 	if err != nil {
-		return nil, errors.New("IOMESH_DATA_CIDR is not the correct cidr format. example: IOMESH_DATA_CIDR=192.168.1.0/24")
+		return nil, errors.New("HOST_NETWORK_CIDR is not the correct cidr format. example: HOST_NETWORK_CIDR=192.168.1.0/24")
 	}
 	ds := kutils.NewDaemonSet(namespace, name)
 	labels := map[string]string{
@@ -135,7 +135,7 @@ func (f Fixture) BasicCheckerDaemonSet(namespace, name string) (*appsv1.DaemonSe
 		Image: constant.DebugToolsImage,
 		Env: []corev1.EnvVar{
 			{
-				Name:  "DATA_CIDR",
+				Name:  "HOST_NETWORK_CIDR",
 				Value: "",
 			},
 		},
